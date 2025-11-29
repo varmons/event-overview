@@ -1,0 +1,320 @@
+{
+    "nav": {
+        "title": "活动概览",
+        "events": "活动",
+        "submit": "提交活动"
+    },
+    "footer": {
+        "copyright": "© 2025 活动概览。保留所有权利。"
+    },
+    "home": {
+        "hero": {
+            "title": "发现技术活动",
+            "subtitle": "浏览最新的黑客松、聚会和竞赛，掌握各大科技社区的动态。"
+        },
+        "search": {
+            "placeholder": "按标题、标签或主办方搜索活动...",
+            "button": "搜索"
+        },
+        "filters": {
+            "title": "筛选",
+            "type": "类型",
+            "vendor": "平台",
+            "status": "状态",
+            "allTypes": "所有类型",
+            "allVendors": "所有平台",
+            "allStatuses": "所有状态",
+            "clear": "清除筛选"
+        },
+        "noResults": {
+            "title": "未找到活动",
+            "description": "请尝试调整搜索条件或筛选器。"
+        },
+        "resultsCount": "{count, plural, =0 {无活动} =1 {1 个活动} other {# 个活动}}"
+    },
+    "supabase": {
+        "badge": "实时同步",
+        "synced": "数据已最新",
+        "syncing": "正在与 Supabase 同步...",
+        "syncingShort": "同步中...",
+        "snapshot": "Supabase 最新快照",
+        "refreshing": "正在刷新数据...",
+        "refresh": "刷新信息流",
+        "errorTitle": "无法连接 Supabase",
+        "retry": "重新同步",
+        "retrying": "重试中...",
+        "retrySupabase": "重新连接 Supabase"
+    },
+    "eventTypes": {
+        "Meetup": "线下聚会",
+        "Hackathon": "黑客马拉松",
+        "Competition": "竞赛",
+        "Workshop": "工作坊",
+        "Webinar": "网络研讨会",
+        "Other": "其他"
+    },
+    "vendors": {
+        "Google": "谷歌",
+        "Amazon": "亚马逊",
+        "Huawei Cloud": "华为云",
+        "Alibaba": "阿里巴巴",
+        "Tencent": "腾讯",
+        "ByteDance": "字节跳动",
+        "Other": "其他"
+    },
+    "eventStatus": {
+        "Upcoming": "即将开始",
+        "OpenForRegistration": "报名中",
+        "RegistrationClosed": "报名已截止",
+        "Ongoing": "进行中",
+        "InReview": "审核中",
+        "Completed": "已结束",
+        "Postponed": "已延期",
+        "Cancelled": "已取消"
+    },
+    "locationTypes": {
+        "Online": "线上",
+        "Offline": "线下",
+        "Hybrid": "混合"
+    },
+    "organizerTypes": {
+        "Individual": "个人",
+        "Community": "社区",
+        "Organization": "组织"
+    },
+    "eventDetail": {
+        "backToEvents": "返回活动列表",
+        "eventNotFound": "未找到活动",
+        "missingDescription": "该活动不存在或已被移除。",
+        "errorHeading": "无法加载活动",
+        "noPoster": "暂无海报",
+        "postponed": {
+            "title": "活动已延期",
+            "defaultReason": "此活动已延期，请查看下方新日期。",
+            "originalDate": "原定日期："
+        },
+        "aboutEvent": "关于此活动",
+        "registration": {
+            "title": "报名",
+            "registerNow": "立即报名",
+            "registrationClosed": "报名已截止",
+            "registrationNotOpen": "报名未开始",
+            "noLink": "无报名链接"
+        },
+        "links": {
+            "officialSite": "官方网站",
+            "livestream": "直播",
+            "recording": "观看回放"
+        },
+        "organizer": {
+            "title": "主办方",
+            "contact": "联系方式"
+        },
+        "timeline": {
+            "title": "活动时间线",
+            "noDetails": "暂无时间线详情。",
+            "registrationOpens": "开始报名",
+            "registrationCloses": "报名截止",
+            "eventStarts": "活动开始",
+            "eventEnds": "活动结束",
+            "submissionDeadline": "提交截止",
+            "reviewStarts": "评审开始",
+            "reviewEnds": "评审结束",
+            "announcement": "结果公布",
+            "demoDay": "展示日",
+            "awardCeremony": "颁奖典礼"
+        },
+        "lastUpdated": "最后更新"
+    },
+    "submit": {
+        "title": "提交新活动",
+        "description": "填写以下表单提交新活动。标有 * 的字段为必填项。",
+        "auth": {
+            "title": "请输入提交密码",
+            "description": "为确保安全，仅授权成员可以访问此表单。",
+            "passwordLabel": "访问密码",
+            "placeholder": "输入密码",
+            "submitButton": "解锁表单",
+            "unlocking": "验证中...",
+            "required": "请填写密码",
+            "invalid": "密码不正确",
+            "error": "验证失败，请稍后再试。",
+            "loading": "正在检查访问权限..."
+        },
+        "basicInfo": "基本信息",
+        "dates": "日期和时间",
+        "location": "地点",
+        "organizer": "主办方信息",
+        "links": "链接和资源",
+        "postponedInfo": "延期活动信息",
+        "submit": "提交活动",
+        "submitting": "提交中...",
+        "errorTitle": "提交失败",
+        "fields": {
+            "title": {
+                "label": "活动标题",
+                "placeholder": "输入活动标题"
+            },
+            "subtitle": {
+                "label": "副标题",
+                "placeholder": "可选的副标题"
+            },
+            "description": {
+                "label": "描述",
+                "placeholder": "描述您的活动..."
+            },
+            "eventType": {
+                "label": "活动类型",
+                "placeholder": "选择类型"
+            },
+            "vendor": {
+                "label": "平台/厂商",
+                "placeholder": "选择平台"
+            },
+            "customVendor": {
+                "label": "自定义平台名称",
+                "placeholder": "例如 OpenAI"
+            },
+            "tags": {
+                "label": "标签",
+                "placeholder": "例如：人工智能、云计算、Web3（逗号分隔）"
+            },
+            "poster": {
+                "label": "活动海报",
+                "button": "选择图片",
+                "dragDrop": "或拖拽至此",
+                "requirements": "最大 2MB，JPG/PNG/WebP 格式",
+                "selected": "已选择：{filename}"
+            },
+            "eventStart": {
+                "label": "活动开始日期和时间"
+            },
+            "eventEnd": {
+                "label": "活动结束日期和时间"
+            },
+            "registrationStart": {
+                "label": "报名开始时间"
+            },
+            "registrationEnd": {
+                "label": "报名截止时间"
+            },
+            "submissionDeadline": {
+                "label": "提交截止时间"
+            },
+            "reviewStart": {
+                "label": "评审开始时间"
+            },
+            "reviewEnd": {
+                "label": "评审结束时间"
+            },
+            "announcementDate": {
+                "label": "结果公布日期"
+            },
+            "demoDayDate": {
+                "label": "展示日日期"
+            },
+            "awardCeremonyDate": {
+                "label": "颁奖典礼日期"
+            },
+            "locationType": {
+                "label": "地点类型",
+                "placeholder": "选择类型"
+            },
+            "locationDetail": {
+                "label": "地点详情",
+                "placeholder": "例如：旧金山或 Zoom 链接"
+            },
+            "organizerName": {
+                "label": "主办方名称",
+                "placeholder": "个人或组织名称"
+            },
+            "organizerType": {
+                "label": "主办方类型",
+                "placeholder": "选择类型"
+            },
+            "organizerContact": {
+                "label": "联系方式",
+                "placeholder": "邮箱或电话（可选）"
+            },
+            "organizerAvatar": {
+                "label": "主办方头像 URL",
+                "placeholder": "https://...（可选）"
+            },
+            "registrationUrl": {
+                "label": "报名链接",
+                "placeholder": "https://..."
+            },
+            "officialSiteUrl": {
+                "label": "官方网站",
+                "placeholder": "https://...（可选）"
+            },
+            "livestreamUrl": {
+                "label": "直播链接",
+                "placeholder": "https://...（可选）"
+            },
+            "recordingUrl": {
+                "label": "回放链接",
+                "placeholder": "https://...（可选）"
+            },
+            "isPostponed": {
+                "label": "此活动已延期"
+            },
+            "postponedReason": {
+                "label": "延期原因",
+                "placeholder": "说明活动延期原因"
+            },
+            "originalEventStart": {
+                "label": "原定开始日期"
+            },
+            "originalEventEnd": {
+                "label": "原定结束日期"
+            }
+        },
+        "validation": {
+            "required": "此字段为必填项",
+            "invalidUrl": "请输入有效的 URL，以 http:// 或 https:// 开头",
+            "invalidImageType": "仅支持 JPG、PNG 和 WebP 格式的图片",
+            "imageTooLarge": "图片大小必须小于 2MB",
+            "imageReadError": "读取图片文件失败",
+            "endBeforeStart": "结束日期必须晚于开始日期",
+            "regEndBeforeStart": "报名截止时间必须晚于报名开始时间",
+            "regEndAfterEvent": "报名必须在活动开始前截止",
+            "postponedOriginalRequired": "延期活动必须填写原定日期",
+            "postponedReasonRequired": "请说明延期原因",
+            "formErrors": "请修正上述错误后再提交",
+            "meetupAutoRegEnd": "若留空，Meetup 将默认在活动开始前 1 天截止报名"
+        },
+        "success": "活动提交成功！"
+    },
+    "redirect": {
+        "leaving": "离开活动概览",
+        "description": "您即将访问外部网站：",
+        "warning": "我们对外部网站的内容不承担责任。",
+        "continue": "继续访问",
+        "goBack": "返回",
+        "invalid": {
+            "title": "无效的重定向",
+            "description": "您尝试访问的链接无效或不安全。",
+            "returnHome": "返回首页"
+        }
+    },
+    "notFound": {
+        "title": "页面未找到",
+        "description": "抱歉，我们找不到您要查找的页面。它可能已被删除或不存在。",
+        "returnHome": "返回首页"
+    },
+    "common": {
+        "loading": "加载中...",
+        "error": "发生错误",
+        "close": "关闭",
+        "cancel": "取消",
+        "save": "保存",
+        "edit": "编辑",
+        "delete": "删除",
+        "yes": "是",
+        "no": "否",
+        "optional": "（可选）",
+        "required": "*",
+        "tbd": "待定"
+    }
+}
