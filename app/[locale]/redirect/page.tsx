@@ -4,11 +4,13 @@ import { RedirectClient } from "./RedirectClient";
 export const dynamic = "force-dynamic";
 
 interface RedirectPageProps {
-    searchParams: { target?: string };
+    // In Next 15+/16, searchParams is passed as a Promise
+    searchParams: Promise<{ target?: string | string[] }>;
 }
 
-export default function RedirectPage({ searchParams }: RedirectPageProps) {
-    const { target } = searchParams;
+export default async function RedirectPage({ searchParams }: RedirectPageProps) {
+    const params = await searchParams;
+    const target = Array.isArray(params?.target) ? params.target[0] : params?.target;
 
     return (
         <Suspense

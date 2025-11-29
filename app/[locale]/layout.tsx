@@ -48,8 +48,8 @@ export default async function LocaleLayout({
     const messages = await getMessages();
 
     return (
-        <html lang={locale}>
-            <body>
+        <html lang={locale} translate="no" className="notranslate" suppressHydrationWarning>
+            <body translate="no">
                 <NextIntlClientProvider messages={messages}>
                     <EventProvider>
                         <div className="flex flex-col min-h-screen">

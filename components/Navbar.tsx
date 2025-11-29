@@ -18,7 +18,7 @@ export function Navbar() {
                         className="flex items-center gap-2 text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
                     >
                         <Calendar className="w-6 h-6 text-blue-600" />
-                        <span>{t('title')}</span>
+                        <span translate="no" suppressHydrationWarning>{t('title')}</span>
                     </Link>
 
                     <div className="flex items-center gap-4">

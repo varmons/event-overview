@@ -15,6 +15,35 @@ export function RedirectClient({ target }: RedirectClientProps) {
     const locale = useLocale();
     const router = useRouter();
 
+    const handleGoBack = () => {
+        if (typeof window !== 'undefined') {
+            const { history, location, document } = window;
+            const referrer = document.referrer;
+
+            // If we have real history, try a native back first
+            if (history.length > 1) {
+                router.back();
+                return;
+            }
+
+            // If opened in a new tab (no history) but referrer is same-origin, push back to it
+            if (referrer) {
+                try {
+                    const refUrl = new URL(referrer);
+                    if (refUrl.origin === location.origin) {
+                        router.push(refUrl.pathname + refUrl.search + refUrl.hash);
+                        return;
+                    }
+                } catch {
+                    // ignore parsing issues and fall back to home
+                }
+            }
+        }
+
+        // Fallback: send user to the locale home
+        router.push(`/${locale}`);
+    };
+
     const { isValid, hostname } = useMemo(() => {
         if (!target) return { isValid: false, hostname: '' };
         try {
@@ -75,7 +104,7 @@ export function RedirectClient({ target }: RedirectClientProps) {
                         {t('continue')}
                     </button>
                     <button
-                        onClick={() => router.back()}
+                        onClick={handleGoBack}
                         className="w-full inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2" />
