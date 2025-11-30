@@ -228,6 +228,8 @@ export default function SubmitEventPage() {
         return Object.keys(newErrors).length === 0;
     };
 
+    const toIsoString = (value?: string) => (value ? new Date(value).toISOString() : undefined);
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!validate()) {
@@ -262,6 +264,21 @@ export default function SubmitEventPage() {
                 posterUrl = await uploadEventPoster(posterFile, eventId);
             }
 
+            const normalizedDates = {
+                registrationStart: toIsoString(formData.registrationStart),
+                registrationEnd: toIsoString(finalRegEnd),
+                eventStart: toIsoString(formData.eventStart)!,
+                eventEnd: toIsoString(formData.eventEnd)!,
+                submissionDeadline: toIsoString(formData.submissionDeadline),
+                reviewStart: toIsoString(formData.reviewStart),
+                reviewEnd: toIsoString(formData.reviewEnd),
+                announcementDate: toIsoString(formData.announcementDate),
+                demoDayDate: toIsoString(formData.demoDayDate),
+                awardCeremonyDate: toIsoString(formData.awardCeremonyDate),
+                originalEventStart: toIsoString(formData.originalEventStart),
+                originalEventEnd: toIsoString(formData.originalEventEnd),
+            };
+
             const newEvent: Event = {
                 id: eventId,
                 title: formData.title,
@@ -275,20 +292,20 @@ export default function SubmitEventPage() {
                     ? undefined
                     : formData.locationDetail || undefined,
                 posterUrl,
-                registrationStart: formData.registrationStart || undefined,
-                registrationEnd: finalRegEnd || undefined,
-                eventStart: formData.eventStart,
-                eventEnd: formData.eventEnd,
-                submissionDeadline: formData.submissionDeadline || undefined,
-                reviewStart: formData.reviewStart || undefined,
-                reviewEnd: formData.reviewEnd || undefined,
-                announcementDate: formData.announcementDate || undefined,
-                demoDayDate: formData.demoDayDate || undefined,
-                awardCeremonyDate: formData.awardCeremonyDate || undefined,
+                registrationStart: normalizedDates.registrationStart,
+                registrationEnd: normalizedDates.registrationEnd,
+                eventStart: normalizedDates.eventStart,
+                eventEnd: normalizedDates.eventEnd,
+                submissionDeadline: normalizedDates.submissionDeadline,
+                reviewStart: normalizedDates.reviewStart,
+                reviewEnd: normalizedDates.reviewEnd,
+                announcementDate: normalizedDates.announcementDate,
+                demoDayDate: normalizedDates.demoDayDate,
+                awardCeremonyDate: normalizedDates.awardCeremonyDate,
                 status: "Upcoming",
                 isPostponed: formData.isPostponed,
-                originalEventStart: formData.originalEventStart || undefined,
-                originalEventEnd: formData.originalEventEnd || undefined,
+                originalEventStart: normalizedDates.originalEventStart,
+                originalEventEnd: normalizedDates.originalEventEnd,
                 postponedReason: formData.postponedReason || undefined,
                 organizerName: formData.organizerName,
                 organizerType: formData.organizerType,
