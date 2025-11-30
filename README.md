@@ -28,7 +28,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/event-overview.git
+git clone https://github.com/varmons/event-overview.git
 cd event-overview
 
 # Install dependencies
