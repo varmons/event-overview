@@ -1,320 +1,337 @@
 {
-    "nav": {
-        "title": "Event Overview",
-        "events": "Events",
-        "submit": "Submit Event"
+  "nav": {
+    "title": "Event Overview",
+    "events": "Events",
+    "history": "History",
+    "submit": "Submit Event"
+  },
+  "footer": {
+    "copyright": "© 2025 Event Overview. All rights reserved."
+  },
+  "home": {
+    "hero": {
+      "title": "Discover Tech Events",
+      "subtitle": "Browse the latest hackathons, meetups, and competitions from top tech companies and communities."
     },
-    "footer": {
-        "copyright": "© 2025 Event Overview. All rights reserved."
+    "search": {
+      "placeholder": "Search events by title, tags, or organizer...",
+      "button": "Search"
     },
-    "home": {
-        "hero": {
-            "title": "Discover Tech Events",
-            "subtitle": "Browse the latest hackathons, meetups, and competitions from top tech companies and communities."
-        },
-        "search": {
-            "placeholder": "Search events by title, tags, or organizer...",
-            "button": "Search"
-        },
-        "filters": {
-            "title": "Filters",
-            "type": "Type",
-            "vendor": "Vendor",
-            "status": "Status",
-            "allTypes": "All Types",
-            "allVendors": "All Vendors",
-            "allStatuses": "All Statuses",
-            "clear": "Clear Filters"
-        },
-        "noResults": {
-            "title": "No events found",
-            "description": "Try adjusting your search or filters to find what you're looking for."
-        },
-        "resultsCount": "{count, plural, =0 {No events} =1 {1 event} other {# events}}"
+    "filters": {
+      "title": "Filters",
+      "type": "Type",
+      "vendor": "Vendor",
+      "status": "Status",
+      "allTypes": "All Types",
+      "allVendors": "All Vendors",
+      "allStatuses": "All Statuses",
+      "clear": "Clear Filters"
     },
-    "supabase": {
-        "badge": "Live feed",
-        "synced": "Data is up to date",
-        "syncing": "Syncing with Supabase...",
-        "syncingShort": "Syncing...",
-        "snapshot": "Latest Supabase snapshot",
-        "refreshing": "Refreshing data...",
-        "refresh": "Refresh feed",
-        "errorTitle": "Unable to reach Supabase",
-        "retry": "Retry sync",
-        "retrying": "Retrying...",
-        "retrySupabase": "Retry Supabase"
+    "noResults": {
+      "title": "No events found",
+      "description": "Try adjusting your search or filters to find what you're looking for."
     },
-    "eventTypes": {
-        "Meetup": "Meetup",
-        "Hackathon": "Hackathon",
-        "Competition": "Competition",
-        "Workshop": "Workshop",
-        "Webinar": "Webinar",
-        "Other": "Other"
+    "resultsCount": "{count, plural, =0 {No events} =1 {1 event} other {# events}}"
+  },
+  "supabase": {
+    "badge": "Live feed",
+    "synced": "Data is up to date",
+    "syncing": "Syncing with Supabase...",
+    "syncingShort": "Syncing...",
+    "snapshot": "Latest Supabase snapshot",
+    "refreshing": "Refreshing data...",
+    "refresh": "Refresh feed",
+    "errorTitle": "Unable to reach Supabase",
+    "retry": "Retry sync",
+    "retrying": "Retrying...",
+    "retrySupabase": "Retry Supabase"
+  },
+  "eventTypes": {
+    "Meetup": "Meetup",
+    "Hackathon": "Hackathon",
+    "Competition": "Competition",
+    "Workshop": "Workshop",
+    "Webinar": "Webinar",
+    "Other": "Other"
+  },
+  "vendors": {
+    "Google": "Google",
+    "Amazon": "Amazon",
+    "Huawei Cloud": "Huawei Cloud",
+    "Alibaba": "Alibaba",
+    "Tencent": "Tencent",
+    "ByteDance": "ByteDance",
+    "Other": "Other"
+  },
+  "eventStatus": {
+    "Upcoming": "Upcoming",
+    "OpenForRegistration": "Open for Registration",
+    "RegistrationClosed": "Registration Closed",
+    "Ongoing": "Ongoing",
+    "InReview": "In Review",
+    "Completed": "Completed",
+    "Postponed": "Postponed",
+    "Cancelled": "Cancelled"
+  },
+  "locationTypes": {
+    "Online": "Online",
+    "Offline": "Offline",
+    "Hybrid": "Hybrid"
+  },
+  "organizerTypes": {
+    "Individual": "Individual",
+    "Community": "Community",
+    "Organization": "Organization"
+  },
+  "eventDetail": {
+    "backToEvents": "Back to Events",
+    "eventNotFound": "Event not found",
+    "missingDescription": "This event either does not exist or has been removed.",
+    "errorHeading": "Unable to load event",
+    "noPoster": "No Poster Available",
+    "postponed": {
+      "title": "Event Postponed",
+      "defaultReason": "This event has been postponed. Please check the new dates below.",
+      "originalDate": "Original Date:"
     },
-    "vendors": {
-        "Google": "Google",
-        "Amazon": "Amazon",
-        "Huawei Cloud": "Huawei Cloud",
-        "Alibaba": "Alibaba",
-        "Tencent": "Tencent",
-        "ByteDance": "ByteDance",
-        "Other": "Other"
+    "aboutEvent": "About this event",
+    "registration": {
+      "title": "Registration",
+      "registerNow": "Register Now",
+      "registrationClosed": "Registration Closed",
+      "registrationNotOpen": "Registration Not Open",
+      "noLink": "No Registration Link"
     },
-    "eventStatus": {
-        "Upcoming": "Upcoming",
-        "OpenForRegistration": "Open for Registration",
-        "RegistrationClosed": "Registration Closed",
-        "Ongoing": "Ongoing",
-        "InReview": "In Review",
-        "Completed": "Completed",
-        "Postponed": "Postponed",
-        "Cancelled": "Cancelled"
+    "links": {
+      "officialSite": "Official Website",
+      "livestream": "Livestream",
+      "recording": "Watch Recording"
     },
-    "locationTypes": {
-        "Online": "Online",
-        "Offline": "Offline",
-        "Hybrid": "Hybrid"
+    "organizer": {
+      "title": "Organizer",
+      "contact": "Contact"
     },
-    "organizerTypes": {
-        "Individual": "Individual",
-        "Community": "Community",
-        "Organization": "Organization"
+    "timeline": {
+      "title": "Event Timeline",
+      "noDetails": "No timeline details available.",
+      "registrationOpens": "Registration Opens",
+      "registrationCloses": "Registration Closes",
+      "eventStarts": "Event Starts",
+      "eventEnds": "Event Ends",
+      "submissionDeadline": "Submission Deadline",
+      "reviewStarts": "Review Starts",
+      "reviewEnds": "Review Ends",
+      "announcement": "Announcement",
+      "demoDay": "Demo Day",
+      "awardCeremony": "Award Ceremony"
     },
-    "eventDetail": {
-        "backToEvents": "Back to Events",
-        "eventNotFound": "Event not found",
-        "missingDescription": "This event either does not exist or has been removed.",
-        "errorHeading": "Unable to load event",
-        "noPoster": "No Poster Available",
-        "postponed": {
-            "title": "Event Postponed",
-            "defaultReason": "This event has been postponed. Please check the new dates below.",
-            "originalDate": "Original Date:"
-        },
-        "aboutEvent": "About this event",
-        "registration": {
-            "title": "Registration",
-            "registerNow": "Register Now",
-            "registrationClosed": "Registration Closed",
-            "registrationNotOpen": "Registration Not Open",
-            "noLink": "No Registration Link"
-        },
-        "links": {
-            "officialSite": "Official Website",
-            "livestream": "Livestream",
-            "recording": "Watch Recording"
-        },
-        "organizer": {
-            "title": "Organizer",
-            "contact": "Contact"
-        },
-        "timeline": {
-            "title": "Event Timeline",
-            "noDetails": "No timeline details available.",
-            "registrationOpens": "Registration Opens",
-            "registrationCloses": "Registration Closes",
-            "eventStarts": "Event Starts",
-            "eventEnds": "Event Ends",
-            "submissionDeadline": "Submission Deadline",
-            "reviewStarts": "Review Starts",
-            "reviewEnds": "Review Ends",
-            "announcement": "Announcement",
-            "demoDay": "Demo Day",
-            "awardCeremony": "Award Ceremony"
-        },
-        "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated"
+  },
+  "submit": {
+    "title": "Submit New Event",
+    "description": "Fill out the form below to submit a new event. All fields marked with * are required.",
+    "auth": {
+      "title": "Enter submission password",
+      "description": "For security reasons, this form is only available to authorized contributors.",
+      "passwordLabel": "Access password",
+      "placeholder": "Enter password",
+      "submitButton": "Unlock form",
+      "unlocking": "Verifying...",
+      "required": "Password is required",
+      "invalid": "Incorrect password",
+      "error": "Unable to verify password. Please try again.",
+      "loading": "Checking access permission..."
     },
-    "submit": {
-        "title": "Submit New Event",
-        "description": "Fill out the form below to submit a new event. All fields marked with * are required.",
-        "auth": {
-            "title": "Enter submission password",
-            "description": "For security reasons, this form is only available to authorized contributors.",
-            "passwordLabel": "Access password",
-            "placeholder": "Enter password",
-            "submitButton": "Unlock form",
-            "unlocking": "Verifying...",
-            "required": "Password is required",
-            "invalid": "Incorrect password",
-            "error": "Unable to verify password. Please try again.",
-            "loading": "Checking access permission..."
-        },
-        "basicInfo": "Basic Information",
-        "dates": "Dates & Schedule",
-        "location": "Location",
-        "organizer": "Organizer Information",
-        "links": "Links & Resources",
-        "postponedInfo": "Postponed Event Information",
-        "submit": "Submit Event",
-        "submitting": "Submitting...",
-        "errorTitle": "Submission failed",
-        "fields": {
-            "title": {
-                "label": "Event Title",
-                "placeholder": "Enter event title"
-            },
-            "subtitle": {
-                "label": "Subtitle",
-                "placeholder": "Optional subtitle"
-            },
-            "description": {
-                "label": "Description",
-                "placeholder": "Describe your event..."
-            },
-            "eventType": {
-                "label": "Event Type",
-                "placeholder": "Select type"
-            },
-            "vendor": {
-                "label": "Vendor/Platform",
-                "placeholder": "Select vendor"
-            },
-            "customVendor": {
-                "label": "Custom Vendor Name",
-                "placeholder": "e.g. OpenAI"
-            },
-            "tags": {
-                "label": "Tags",
-                "placeholder": "e.g. AI, Cloud, Web3 (comma-separated)"
-            },
-            "poster": {
-                "label": "Event Poster",
-                "button": "Choose Image",
-                "dragDrop": "or drag and drop",
-                "requirements": "Max 2MB, JPG/PNG/WebP",
-                "selected": "Selected: {filename}"
-            },
-            "eventStart": {
-                "label": "Event Start Date & Time"
-            },
-            "eventEnd": {
-                "label": "Event End Date & Time"
-            },
-            "registrationStart": {
-                "label": "Registration Start"
-            },
-            "registrationEnd": {
-                "label": "Registration End"
-            },
-            "submissionDeadline": {
-                "label": "Submission Deadline"
-            },
-            "reviewStart": {
-                "label": "Review Start"
-            },
-            "reviewEnd": {
-                "label": "Review End"
-            },
-            "announcementDate": {
-                "label": "Announcement Date"
-            },
-            "demoDayDate": {
-                "label": "Demo Day Date"
-            },
-            "awardCeremonyDate": {
-                "label": "Award Ceremony Date"
-            },
-            "locationType": {
-                "label": "Location Type",
-                "placeholder": "Select type"
-            },
-            "locationDetail": {
-                "label": "Location Details",
-                "placeholder": "e.g. San Francisco, CA or Zoom Link"
-            },
-            "organizerName": {
-                "label": "Organizer Name",
-                "placeholder": "Person or organization name"
-            },
-            "organizerType": {
-                "label": "Organizer Type",
-                "placeholder": "Select type"
-            },
-            "organizerContact": {
-                "label": "Contact Info",
-                "placeholder": "Email or phone (optional)"
-            },
-            "organizerAvatar": {
-                "label": "Organizer Avatar URL",
-                "placeholder": "https://... (optional)"
-            },
-            "registrationUrl": {
-                "label": "Registration URL",
-                "placeholder": "https://..."
-            },
-            "officialSiteUrl": {
-                "label": "Official Website",
-                "placeholder": "https://... (optional)"
-            },
-            "livestreamUrl": {
-                "label": "Livestream URL",
-                "placeholder": "https://... (optional)"
-            },
-            "recordingUrl": {
-                "label": "Recording URL",
-                "placeholder": "https://... (optional)"
-            },
-            "isPostponed": {
-                "label": "This event has been postponed"
-            },
-            "postponedReason": {
-                "label": "Postponement Reason",
-                "placeholder": "Explain why the event was postponed"
-            },
-            "originalEventStart": {
-                "label": "Original Start Date"
-            },
-            "originalEventEnd": {
-                "label": "Original End Date"
-            }
-        },
-        "validation": {
-            "required": "This field is required",
-            "invalidUrl": "Please enter a valid URL starting with http:// or https://",
-            "invalidImageType": "Only JPG, PNG, and WebP images are allowed",
-            "imageTooLarge": "Image must be less than 2MB",
-            "imageReadError": "Failed to read image file",
-            "endBeforeStart": "End date must be after start date",
-            "regEndBeforeStart": "Registration end must be after registration start",
-            "regEndAfterEvent": "Registration must end before event starts",
-            "postponedOriginalRequired": "Original dates are required for postponed events",
-            "postponedReasonRequired": "Please provide a reason for postponement",
-            "formErrors": "Please fix the errors above before submitting",
-            "meetupAutoRegEnd": "If empty, meetups will default to 1 day before the event starts"
-        },
-        "success": "Event submitted successfully!"
+    "basicInfo": "Basic Information",
+    "dates": "Dates & Schedule",
+    "timeline": "Event Timeline",
+    "registration": "Registration Period",
+    "location": "Location",
+    "organizer": "Organizer Information",
+    "links": "Links & Resources",
+    "postponedInfo": "Postponed Event Information",
+    "submit": "Submit Event",
+    "submitting": "Submitting...",
+    "errorTitle": "Submission failed",
+    "fields": {
+      "title": {
+        "label": "Event Title",
+        "placeholder": "Enter event title"
+      },
+      "subtitle": {
+        "label": "Subtitle",
+        "placeholder": "Optional subtitle"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Describe your event..."
+      },
+      "eventType": {
+        "label": "Event Type",
+        "placeholder": "Select type"
+      },
+      "vendor": {
+        "label": "Vendor/Platform",
+        "placeholder": "Select vendor"
+      },
+      "customVendor": {
+        "label": "Custom Vendor Name",
+        "placeholder": "e.g. OpenAI"
+      },
+      "tags": {
+        "label": "Tags",
+        "placeholder": "e.g. AI, Cloud, Web3 (comma-separated)"
+      },
+      "poster": {
+        "label": "Event Poster",
+        "button": "Choose Image",
+        "dragDrop": "or drag and drop",
+        "requirements": "Max 2MB, JPG/PNG/WebP",
+        "selected": "Selected: {filename}"
+      },
+      "eventStart": {
+        "label": "Event Start Date & Time"
+      },
+      "eventEnd": {
+        "label": "Event End Date & Time"
+      },
+      "registrationStart": {
+        "label": "Registration Start"
+      },
+      "registrationEnd": {
+        "label": "Registration End"
+      },
+      "submissionDeadline": {
+        "label": "Submission Deadline"
+      },
+      "reviewStart": {
+        "label": "Review Start"
+      },
+      "reviewEnd": {
+        "label": "Review End"
+      },
+      "announcementDate": {
+        "label": "Announcement Date"
+      },
+      "demoDayDate": {
+        "label": "Demo Day Date"
+      },
+      "awardCeremonyDate": {
+        "label": "Award Ceremony Date"
+      },
+      "locationType": {
+        "label": "Location Type",
+        "placeholder": "Select type"
+      },
+      "locationDetail": {
+        "label": "Location Details",
+        "placeholder": "e.g. San Francisco, CA or Zoom Link"
+      },
+      "organizerName": {
+        "label": "Organizer Name",
+        "placeholder": "Person or organization name"
+      },
+      "organizerType": {
+        "label": "Organizer Type",
+        "placeholder": "Select type"
+      },
+      "organizerContact": {
+        "label": "Contact Info",
+        "placeholder": "Email or phone (optional)"
+      },
+      "organizerAvatar": {
+        "label": "Organizer Avatar URL",
+        "placeholder": "https://... (optional)"
+      },
+      "registrationUrl": {
+        "label": "Registration URL",
+        "placeholder": "https://..."
+      },
+      "officialSiteUrl": {
+        "label": "Official Website",
+        "placeholder": "https://... (optional)"
+      },
+      "livestreamUrl": {
+        "label": "Livestream URL",
+        "placeholder": "https://... (optional)"
+      },
+      "recordingUrl": {
+        "label": "Recording URL",
+        "placeholder": "https://... (optional)"
+      },
+      "isPostponed": {
+        "label": "This event has been postponed"
+      },
+      "postponedReason": {
+        "label": "Postponement Reason",
+        "placeholder": "Explain why the event was postponed"
+      },
+      "originalEventStart": {
+        "label": "Original Start Date"
+      },
+      "originalEventEnd": {
+        "label": "Original End Date"
+      }
     },
-    "redirect": {
-        "leaving": "Leaving Event Overview",
-        "description": "You are about to visit an external website:",
-        "warning": "We are not responsible for the content of external sites.",
-        "continue": "Continue to Site",
-        "goBack": "Go Back",
-        "invalid": {
-            "title": "Invalid Redirect",
-            "description": "The link you are trying to visit is invalid or unsafe.",
-            "returnHome": "Return to Home"
-        }
+    "validation": {
+      "required": "This field is required",
+      "invalidUrl": "Please enter a valid URL starting with http:// or https://",
+      "invalidImageType": "Only JPG, PNG, and WebP images are allowed",
+      "imageTooLarge": "Image must be less than 2MB",
+      "imageReadError": "Failed to read image file",
+      "endBeforeStart": "End date must be after start date",
+      "regEndBeforeStart": "Registration end must be after registration start",
+      "regEndAfterEvent": "Registration must end before event starts",
+      "postponedOriginalRequired": "Original dates are required for postponed events",
+      "postponedReasonRequired": "Please provide a reason for postponement",
+      "formErrors": "Please fix the errors above before submitting",
+      "meetupAutoRegEnd": "If empty, meetups will default to 1 day before the event starts"
     },
-    "notFound": {
-        "title": "Page Not Found",
-        "description": "Sorry, we couldn't find the page you're looking for. It might have been removed or doesn't exist.",
-        "returnHome": "Return to Homepage"
-    },
-    "common": {
-        "loading": "Loading...",
-        "error": "An error occurred",
-        "close": "Close",
-        "cancel": "Cancel",
-        "save": "Save",
-        "edit": "Edit",
-        "delete": "Delete",
-        "yes": "Yes",
-        "no": "No",
-        "optional": "(optional)",
-        "required": "*",
-        "tbd": "TBD"
+    "success": "Event submitted successfully!"
+  },
+  "redirect": {
+    "leaving": "Leaving Event Overview",
+    "description": "You are about to visit an external website:",
+    "warning": "We are not responsible for the content of external sites.",
+    "continue": "Continue to Site",
+    "goBack": "Go Back",
+    "invalid": {
+      "title": "Invalid Redirect",
+      "description": "The link you are trying to visit is invalid or unsafe.",
+      "returnHome": "Return to Home"
     }
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, we couldn't find the page you're looking for. It might have been removed or doesn't exist.",
+    "returnHome": "Return to Homepage"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "yes": "Yes",
+    "no": "No",
+    "optional": "(optional)",
+    "required": "*",
+    "tbd": "TBD",
+    "back": "Back",
+    "previous": "Previous",
+    "next": "Next",
+    "viewAll": "View All"
+  },
+  "history": {
+    "title": "Historical Events",
+    "description": "{count} completed events",
+    "empty": {
+      "title": "No historical events",
+      "description": "Completed and cancelled events will appear here."
+    },
+    "pagination": "Page {current} of {total}",
+    "showing": "Showing {start}-{end} of {total} events"
+  }
 }

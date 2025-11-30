@@ -1,17 +1,23 @@
-import { getRequestConfig } from 'next-intl/server';
-import { locales, defaultLocale, type Locale } from './config';
+/**
+ * @fileoverview Server-side request configuration for next-intl.
+ * Handles locale detection and message loading.
+ */
 
+import { getRequestConfig } from "next-intl/server";
+import { locales, defaultLocale, type Locale } from "./config";
+
+/** Configure locale and load messages for each request */
 export default getRequestConfig(async ({ requestLocale }) => {
-    // This will run on the server for every request
-    let locale = await requestLocale;
+  // This will run on the server for every request
+  let locale = await requestLocale;
 
-    // Ensure locale is valid, fallback to default
-    if (!locale || !locales.includes(locale as Locale)) {
-        locale = defaultLocale;
-    }
+  // Ensure locale is valid, fallback to default
+  if (!locale || !locales.includes(locale as Locale)) {
+    locale = defaultLocale;
+  }
 
-    return {
-        locale,
-        messages: (await import(`../messages/${locale}.json`)).default
-    };
+  return {
+    locale,
+    messages: (await import(`../messages/${locale}.json`)).default,
+  };
 });

@@ -1,8 +1,22 @@
-# Event Overview
+<div align="center">
 
-A multilingual event discovery dashboard built with Next.js 16 (App Router) that curates community events from Supabase, provides a password-gated submission workflow, and exposes locale-aware detail pages with rich timelines.
+# 🎯 Event Overview
 
-## Key Features
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?logo=supabase)](https://supabase.com/)
+
+**A multilingual event discovery dashboard for community events**
+
+[Features](#key-features) • [Quick Start](#quick-start) • [Documentation](#project-structure) • [Contributing](./CONTRIBUTING.md)
+
+</div>
+
+---
+
+## ✨ Key Features
 
 - **Live Supabase feed** – Client-side store hydrates from Supabase Postgres and automatically caches the latest snapshot in `localStorage` for offline resilience.
 - **Password-locked submissions** – The submit form stays hidden until the correct SHA-256 password is provided, preventing random spam while remaining fully client-side.
@@ -10,32 +24,60 @@ A multilingual event discovery dashboard built with Next.js 16 (App Router) that
 - **Rich detail views** – Posters, timelines, vendor metadata, postponed banners, and registration CTAs come from the same dataset, guaranteeing consistency between list and detail pages.
 - **Modern tooling** – Vitest for unit tests, Tailwind-powered UI primitives, and structured TypeScript types for events.
 
-## Tech Stack
+## 🚀 Quick Start
 
-| Layer | Tooling |
-| --- | --- |
-| Framework | Next.js 16 (App Router) |
-| UI / Styling | Tailwind CSS + custom components |
-| State | Client-side `EventProvider` context + `localStorage` cache |
-| Localization | `next-intl` with per-locale message bundles |
-| Backend | Supabase Postgres & Supabase Storage |
-| Testing | [Vitest](https://vitest.dev/) + `vite-tsconfig-paths` |
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/event-overview.git
+cd event-overview
 
-## Project Structure
+# Install dependencies
+npm install
+
+# Copy environment variables
+cp .env.example .env.local
+# Edit .env.local with your Supabase credentials
+
+# Start development server
+npm run dev
+```
+
+Visit `http://localhost:3000/en` (or `/zh`, `/ja`) to see the app.
+
+## 🛠 Tech Stack
+
+| Layer        | Tooling                                                    |
+| ------------ | ---------------------------------------------------------- |
+| Framework    | Next.js 16 (App Router)                                    |
+| UI / Styling | Tailwind CSS 4 + custom components                         |
+| State        | Client-side `EventProvider` context + `localStorage` cache |
+| Localization | `next-intl` with per-locale message bundles                |
+| Backend      | Supabase Postgres & Supabase Storage                       |
+| Testing      | [Vitest](https://vitest.dev/) + `vite-tsconfig-paths`      |
+
+## 📁 Project Structure
 
 ```
-app/
-  [locale]/
-    page.tsx              # Home feed with filters + Supabase status
-    submit/page.tsx       # Password-gated submission form
-    events/[id]/page.tsx  # Event detail view
-components/              # UI atoms (cards, status badges, timelines)
-lib/
-  eventRepository.ts     # Supabase CRUD + mappers
-  password.ts            # SHA-256 password verification helper
-  store.tsx              # EventProvider context (fetch/cache logic)
-messages/                # next-intl locale JSON files
+app/                    # Next.js pages
+  [locale]/             # Localized routes (en, zh, ja)
+    page.tsx            # Home feed with filters
+    history/            # Historical events archive
+    submit/             # Password-gated submission form
+    events/[id]/        # Event detail view
+components/             # Reusable UI components
+lib/                    # Core business logic
+  eventRepository.ts    # Supabase CRUD + mappers
+  eventFilters.ts       # Filtering & pagination
+  store.tsx             # React Context state
+  eventStore.ts         # Zustand state (alternative)
+  timezone.ts           # Timezone utilities (default: Asia/Shanghai)
+messages/               # Translation files (en, zh, ja)
+docs/                   # Documentation
+  ARCHITECTURE.md       # Detailed architecture guide
+  PERFORMANCE.md        # Performance optimization guide
 ```
+
+> 📖 See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for detailed architecture documentation.
 
 ## Prerequisites
 
@@ -172,11 +214,15 @@ Vitest covers event mappers and Supabase helpers. Extend these tests when adding
 
 ## Troubleshooting
 
-| Symptom | Fix |
-| --- | --- |
-| Banner shows “Supabase environment variables are missing” | Double-check `.env.local` or hosting env vars; until resolved the UI falls back to cached mock data only. |
-| Poster uploads fail | Confirm the bucket name matches `NEXT_PUBLIC_SUPABASE_POSTER_BUCKET` and `anon` has `insert` rights (or provide an authenticated route). |
-| Event not visible after submission | Inspect browser console for Supabase errors, ensure RLS policies allow inserts, and verify the `EventProvider` re-sync succeeded via the “Refresh feed” button. |
-| Password gate never unlocks | Generate a new SHA-256 hash and ensure the value in `NEXT_PUBLIC_SUBMIT_PASSWORD_HASH` matches exactly (no whitespace). |
+| Symptom                                                   | Fix                                                                                                                                                             |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Banner shows “Supabase environment variables are missing” | Double-check `.env.local` or hosting env vars; until resolved the UI falls back to cached mock data only.                                                       |
+| Poster uploads fail                                       | Confirm the bucket name matches `NEXT_PUBLIC_SUPABASE_POSTER_BUCKET` and `anon` has `insert` rights (or provide an authenticated route).                        |
+| Event not visible after submission                        | Inspect browser console for Supabase errors, ensure RLS policies allow inserts, and verify the `EventProvider` re-sync succeeded via the “Refresh feed” button. |
+| Password gate never unlocks                               | Generate a new SHA-256 hash and ensure the value in `NEXT_PUBLIC_SUBMIT_PASSWORD_HASH` matches exactly (no whitespace).                                         |
 
 With the Supabase project configured, the live feed, filters, and detail pages will all reflect the latest data instantly after each submission.
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE).

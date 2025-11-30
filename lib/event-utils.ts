@@ -1,142 +1,201 @@
+/**
+ * @fileoverview Event utility functions for date handling and status computation.
+ * Uses China timezone (Asia/Shanghai) as default.
+ */
+
 import { Event, EventStatus } from "@/types";
+import { getTimezoneForLocale } from "./timezone";
 
-export function computeEventStatus(event: Event, now: Date = new Date()): EventStatus {
-    if (event.isPostponed) {
-        return "Postponed";
-    }
+// =============================================================================
+// Types
+// =============================================================================
 
-    // Helper to parse date strings safely
-    const parse = (d?: string) => (d ? new Date(d).getTime() : null);
-    const nowTime = now.getTime();
+/** Flexible date input type for utility functions */
+export type DateInput = string | Date | null | undefined;
 
-    const regStart = parse(event.registrationStart);
-    const regEnd = parse(event.registrationEnd);
-    const evtStart = parse(event.eventStart);
-    const evtEnd = parse(event.eventEnd);
-    const reviewStart = parse(event.reviewStart);
-    const reviewEnd = parse(event.reviewEnd);
+// =============================================================================
+// Internal Helpers
+// =============================================================================
 
-    // 1. Upcoming: Now < Registration Start
-    if (regStart && nowTime < regStart) {
-        return "Upcoming";
-    }
+/**
+ * Parse various date inputs into a Date object
+ * @internal
+ */
+const toDate = (input: DateInput): Date | null => {
+  if (!input) return null;
+  if (input instanceof Date) return input;
+  const parsed = new Date(input);
+  return isNaN(parsed.getTime()) ? null : parsed;
+};
 
-    // 2. OpenForRegistration: Registration Start <= Now <= Registration End
-    if (regStart && regEnd && nowTime >= regStart && nowTime <= regEnd) {
-        return "OpenForRegistration";
-    }
-    // If only regEnd is present and we are before it (and no regStart specified, assume open)
-    if (!regStart && regEnd && nowTime <= regEnd) {
-        return "OpenForRegistration";
-    }
+/**
+ * Convert date input to Unix timestamp
+ * @internal
+ */
+const toEpoch = (input: DateInput): number | null => {
+  const parsed = toDate(input);
+  return parsed ? parsed.getTime() : null;
+};
 
-    // 3. RegistrationClosed: Now > Registration End AND Now < Event Start
-    // (Only if event hasn't started yet)
-    if (regEnd && evtStart && nowTime > regEnd && nowTime < evtStart) {
-        return "RegistrationClosed";
-    }
+// =============================================================================
+// Exported Functions
+// =============================================================================
 
-    // 4. Ongoing: Event Start <= Now <= Event End
-    if (evtStart && evtEnd && nowTime >= evtStart && nowTime <= evtEnd) {
-        return "Ongoing";
-    }
-    // If only evtStart is known and we are past it, and no end known? Assume ongoing?
-    // Or if only evtEnd known and we are before it?
-    // Let's stick to the rule: if we are in the event window.
+/**
+ * Normalize any date-like input to an ISO 8601 string
+ * @param input - Date string, Date object, null, or undefined
+ * @returns ISO string or undefined if input is invalid
+ * @example
+ * toIsoString(new Date()) // "2024-01-15T10:30:00.000Z"
+ * toIsoString("2024-01-15") // "2024-01-15T00:00:00.000Z"
+ * toIsoString(null) // undefined
+ */
+export const toIsoString = (input: DateInput): string | undefined => {
+  const parsed = toDate(input);
+  return parsed ? parsed.toISOString() : undefined;
+};
 
-    // 5. InReview: Now > Event End AND Now <= Review End
-    if (evtEnd && reviewEnd && nowTime > evtEnd && nowTime <= reviewEnd) {
-        // If reviewStart exists, check we are after it too?
-        // "If now > eventEnd and reviewStart/reviewEnd exist and now <= reviewEnd"
-        if (reviewStart) {
-            if (nowTime >= reviewStart) return "InReview";
-        } else {
-            return "InReview";
-        }
-    }
+/**
+ * Compute the current status of an event based on its dates
+ * @param event - The event to evaluate
+ * @param now - Reference date (defaults to current time)
+ * @returns The computed EventStatus
+ *
+ * @description Status flow:
+ * - Postponed (if isPostponed flag is set)
+ * - Upcoming → OpenForRegistration → RegistrationClosed → Ongoing → InReview → Completed
+ */
+export function computeEventStatus(
+  event: Event,
+  now: Date = new Date(),
+): EventStatus {
+  if (event.isPostponed) {
+    return "Postponed";
+  }
 
-    // 6. Completed: Now > Event End (and review phase passed or not relevant)
-    if (evtEnd && nowTime > evtEnd) {
-        // Check if we are past reviewEnd if it exists
-        if (reviewEnd && nowTime > reviewEnd) {
-            return "Completed";
-        }
-        if (!reviewEnd) {
-            return "Completed";
-        }
-    }
+  const nowTime = now.getTime();
+  const regStart = toEpoch(event.registrationStart);
+  const regEnd = toEpoch(event.registrationEnd);
+  const evtStart = toEpoch(event.eventStart);
+  const evtEnd = toEpoch(event.eventEnd);
+  const reviewStart = toEpoch(event.reviewStart);
+  const reviewEnd = toEpoch(event.reviewEnd);
 
-    // Fallbacks for incomplete data
-    if (evtStart && nowTime < evtStart) return "Upcoming";
+  if (regStart && nowTime < regStart) return "Upcoming";
 
-    // Default fallback
-    return "Upcoming";
+  if (regStart && regEnd && nowTime >= regStart && nowTime <= regEnd) {
+    return "OpenForRegistration";
+  }
+  if (!regStart && regEnd && nowTime <= regEnd) {
+    return "OpenForRegistration";
+  }
+
+  if (regEnd && evtStart && nowTime > regEnd && nowTime < evtStart) {
+    return "RegistrationClosed";
+  }
+
+  if (evtStart && evtEnd && nowTime >= evtStart && nowTime <= evtEnd) {
+    return "Ongoing";
+  }
+
+  if (evtEnd && reviewEnd && nowTime > evtEnd && nowTime <= reviewEnd) {
+    if (!reviewStart || nowTime >= reviewStart) return "InReview";
+  }
+
+  if (evtEnd && nowTime > evtEnd) {
+    if (!reviewEnd || nowTime > reviewEnd) return "Completed";
+  }
+
+  if (evtStart && nowTime < evtStart) return "Upcoming";
+
+  return "Upcoming";
 }
 
-export function formatDate(dateStr?: string, locale: string = "en"): string {
-    if (!dateStr) return "";
-    
-    const date = new Date(dateStr);
-    
-    // 中文格式：12月18日
-    if (locale === "zh") {
-        return date.toLocaleDateString("zh-CN", {
-            month: "long",
-            day: "numeric",
-        });
-    }
-    
-    // 日语格式：12月18日
-    if (locale === "ja") {
-        return date.toLocaleDateString("ja-JP", {
-            month: "long",
-            day: "numeric",
-        });
-    }
-    
-    // 英文格式：Dec 18, 2025
-    return date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
+/**
+ * Format a date for display (date only, no time)
+ * @param dateStr - Date to format
+ * @param locale - Locale code ("en", "zh", "ja")
+ * @returns Formatted date string or empty string if invalid
+ * @example
+ * formatDate("2024-06-15T06:30:00Z", "zh") // "6月15日" (in China timezone)
+ */
+export function formatDate(dateStr?: DateInput, locale: string = "en"): string {
+  const date = toDate(dateStr);
+  if (!date) return "";
+
+  const timezone = getTimezoneForLocale(locale);
+
+  if (locale === "zh") {
+    return date.toLocaleDateString("zh-CN", {
+      timeZone: timezone,
+      month: "long",
+      day: "numeric",
     });
+  }
+
+  if (locale === "ja") {
+    return date.toLocaleDateString("ja-JP", {
+      timeZone: timezone,
+      month: "long",
+      day: "numeric",
+    });
+  }
+
+  return date.toLocaleDateString("en-US", {
+    timeZone: timezone,
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
-export function formatDateTime(dateStr?: string, locale: string = "en"): string {
-    if (!dateStr) return "";
-    
-    const date = new Date(dateStr);
-    
-    // 中文格式：12月18日 下午5:00
-    if (locale === "zh") {
-        const formatted = date.toLocaleString("zh-CN", {
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-        });
-        // 确保格式为：12月18日 下午5:00
-        return formatted.replace(/\s+/g, " ");
-    }
-    
-    // 日语格式：12月18日 17:00
-    if (locale === "ja") {
-        return date.toLocaleString("ja-JP", {
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: false,
-        });
-    }
-    
-    // 英文格式：Dec 18, 2025, 5:00 PM
-    return date.toLocaleString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
+/**
+ * Format a date with time for display
+ * @param dateStr - Date to format
+ * @param locale - Locale code ("en", "zh", "ja")
+ * @returns Formatted datetime string or empty string if invalid
+ * @example
+ * formatDateTime("2024-06-15T06:30:00Z", "zh") // "6月15日 下午2:30" (in China timezone UTC+8)
+ */
+export function formatDateTime(
+  dateStr?: DateInput,
+  locale: string = "en",
+): string {
+  const date = toDate(dateStr);
+  if (!date) return "";
+
+  const timezone = getTimezoneForLocale(locale);
+
+  if (locale === "zh") {
+    const formatted = date.toLocaleString("zh-CN", {
+      timeZone: timezone,
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     });
+    // Keep spacing consistent (e.g., 12月14日 下午5:00)
+    return formatted.replace(/\s+/g, " ");
+  }
+
+  if (locale === "ja") {
+    return date.toLocaleString("ja-JP", {
+      timeZone: timezone,
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: false,
+    });
+  }
+
+  return date.toLocaleString("en-US", {
+    timeZone: timezone,
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
 }

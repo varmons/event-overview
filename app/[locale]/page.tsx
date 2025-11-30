@@ -1,83 +1,105 @@
+/**
+ * @fileoverview Home page showing active events with pagination.
+ * Historical events are moved to a separate page for better performance.
+ */
+
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback, memo } from "react";
 import { useEventStore } from "@/lib/store";
 import { EventCard } from "@/components/EventCard";
 import { EventType, Vendor, EventStatus } from "@/types";
-import { Search, Filter, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { Search, Filter, X, History, ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
+import Link from "next/link";
+import { InputField, SelectField } from "@/components/FormControls";
+import { KNOWN_VENDORS, DEFAULT_PAGE_SIZE } from "@/lib/constants";
+import { isActiveEvent, paginate, getEventStats } from "@/lib/eventFilters";
+
+// Memoized EventCard for better performance
+const MemoizedEventCard = memo(EventCard);
 
 export default function Home() {
   const { events, isLoading, isSyncing, error, refreshEvents } = useEventStore();
   const t = useTranslations("home");
+  const tCommon = useTranslations("common");
   const tEventTypes = useTranslations("eventTypes");
   const tVendors = useTranslations("vendors");
   const tStatus = useTranslations("eventStatus");
   const tSupabase = useTranslations("supabase");
-  const vendorFilters: Vendor[] = [
-    "Tencent",
-    "Alibaba",
-    "ByteDance",
-    "Huawei Cloud",
-    "Google",
-    "Amazon",
-    "Other",
-  ];
+  const locale = useLocale();
+
+  // Filter states
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<EventType | "All">("All");
   const [selectedVendor, setSelectedVendor] = useState<Vendor | "All">("All");
   const [selectedStatus, setSelectedStatus] = useState<EventStatus | "All">("All");
+  const [page, setPage] = useState(1);
 
+  // Get only active events (filter out historical)
+  const activeEvents = useMemo(
+    () => events.filter(isActiveEvent),
+    [events]
+  );
+
+  // Apply filters
   const filteredEvents = useMemo(() => {
-    return events
-      .filter((event) => {
-        // Search filter
-        const query = searchQuery.toLowerCase();
-        const matchesSearch =
-          event.title.toLowerCase().includes(query) ||
-          event.organizerName.toLowerCase().includes(query) ||
-          event.tags.some((tag) => tag.toLowerCase().includes(query));
+    let result = activeEvents;
 
-        if (!matchesSearch) return false;
+    // Filter by status (only active statuses)
+    if (selectedStatus !== "All") {
+      result = result.filter((e) => e.status === selectedStatus);
+    }
 
-        // Type filter
-        if (selectedType !== "All" && event.eventType !== selectedType) return false;
+    // Filter by type
+    if (selectedType !== "All") {
+      result = result.filter((e) => e.eventType === selectedType);
+    }
 
-        // Vendor filter
-        if (selectedVendor !== "All") {
-          const vendorKey =
-            event.vendor && vendorFilters.includes(event.vendor as Vendor)
-              ? (event.vendor as Vendor)
-              : "Other";
-          if (vendorKey !== selectedVendor) return false;
-        }
+    // Filter by vendor
+    if (selectedVendor !== "All") {
+      result = result.filter((e) => e.vendor === selectedVendor);
+    }
 
-        // Status filter
-        if (selectedStatus !== "All" && event.status !== selectedStatus) return false;
+    // Filter by search
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(
+        (e) =>
+          e.title.toLowerCase().includes(query) ||
+          e.description.toLowerCase().includes(query) ||
+          e.tags.some((tag) => tag.toLowerCase().includes(query))
+      );
+    }
 
-        return true;
-      })
-      .sort((a, b) => {
-        // Sort by event start fallback to createdAt
-        const dateA = a.eventStart
-          ? new Date(a.eventStart).getTime()
-          : new Date(a.createdAt).getTime();
-        const dateB = b.eventStart
-          ? new Date(b.eventStart).getTime()
-          : new Date(b.createdAt).getTime();
-        return dateA - dateB;
-      });
-  }, [events, searchQuery, selectedType, selectedVendor, selectedStatus]);
+    // Sort by event start date
+    return result.sort((a, b) => {
+      const dateA = a.eventStart ? new Date(a.eventStart).getTime() : Infinity;
+      const dateB = b.eventStart ? new Date(b.eventStart).getTime() : Infinity;
+      return dateA - dateB;
+    });
+  }, [activeEvents, selectedStatus, selectedType, selectedVendor, searchQuery]);
 
-  const clearFilters = () => {
+  // Paginate results
+  const paginatedEvents = useMemo(
+    () => paginate(filteredEvents, page, DEFAULT_PAGE_SIZE),
+    [filteredEvents, page]
+  );
+
+  // Event stats
+  const stats = useMemo(() => getEventStats(events), [events]);
+
+  // Clear all filters
+  const clearFilters = useCallback(() => {
     setSearchQuery("");
     setSelectedType("All");
     setSelectedVendor("All");
     setSelectedStatus("All");
-  };
+    setPage(1);
+  }, []);
 
+  const hasFilters = searchQuery || selectedType !== "All" || selectedVendor !== "All" || selectedStatus !== "All";
   const showSkeleton = isLoading && events.length === 0;
-  const showEmptyState = !isLoading && filteredEvents.length === 0;
 
   return (
     <div className="min-h-screen bg-gray-50 pb-12">
@@ -107,7 +129,9 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {error && (
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
-            <p className="text-sm font-semibold text-red-900">{tSupabase("errorTitle")}</p>
+            <p className="text-sm font-semibold text-red-900">
+              {tSupabase("errorTitle")}
+            </p>
             <p className="text-sm text-red-700 mt-1">{error}</p>
             <button
               onClick={refreshEvents}
@@ -120,19 +144,15 @@ export default function Home() {
         )}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
-          <aside className="w-full lg:w-64 flex-shrink-0 space-y-8">
-            <div>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder={t("search.placeholder")}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                />
-              </div>
-            </div>
+          <aside className="w-full lg:w-64 shrink-0 space-y-8">
+            <InputField
+              label={t("search.button")}
+              name="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t("search.placeholder")}
+              rightSlot={<Search className="w-4 h-4" />}
+            />
 
             <div className="space-y-6">
               <div className="flex items-center justify-between">
@@ -143,67 +163,77 @@ export default function Home() {
                   selectedVendor !== "All" ||
                   selectedStatus !== "All" ||
                   searchQuery) && (
-                    <button
-                      onClick={clearFilters}
-                      className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
-                    >
-                      <X className="w-3 h-3" /> {t("filters.clear")}
-                    </button>
-                  )}
+                  <button
+                    onClick={clearFilters}
+                    className="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1"
+                  >
+                    <X className="w-3 h-3" /> {t("filters.clear")}
+                  </button>
+                )}
               </div>
 
               {/* Event Type Filter */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-700">{t("filters.type")}</label>
-                <select
-                  value={selectedType}
-                  onChange={(e) => setSelectedType(e.target.value as EventType | "All")}
-                  className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="All">{t("filters.allTypes")}</option>
-                  <option value="Meetup">{tEventTypes("Meetup")}</option>
-                  <option value="Hackathon">{tEventTypes("Hackathon")}</option>
-                  <option value="Competition">{tEventTypes("Competition")}</option>
-                  <option value="Workshop">{tEventTypes("Workshop")}</option>
-                  <option value="Webinar">{tEventTypes("Webinar")}</option>
-                  <option value="Other">{tEventTypes("Other")}</option>
-                </select>
-              </div>
+              <SelectField
+                label={t("filters.type")}
+                value={selectedType}
+                onChange={(e) =>
+                  setSelectedType(e.target.value as EventType | "All")
+                }
+                options={[
+                  { value: "All", label: t("filters.allTypes") },
+                  { value: "Meetup", label: tEventTypes("Meetup") },
+                  { value: "Hackathon", label: tEventTypes("Hackathon") },
+                  { value: "Competition", label: tEventTypes("Competition") },
+                  { value: "Workshop", label: tEventTypes("Workshop") },
+                  { value: "Webinar", label: tEventTypes("Webinar") },
+                  { value: "Other", label: tEventTypes("Other") },
+                ]}
+              />
 
               {/* Vendor Filter */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-700">{t("filters.vendor")}</label>
-                <select
-                  value={selectedVendor}
-                  onChange={(e) => setSelectedVendor(e.target.value as Vendor | "All")}
-                  className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="All">{t("filters.allVendors")}</option>
-                  {vendorFilters.map((vendor) => (
-                    <option key={vendor} value={vendor}>
-                      {tVendors(vendor)}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <SelectField
+                label={t("filters.vendor")}
+                value={selectedVendor}
+                onChange={(e) =>
+                  setSelectedVendor(e.target.value as Vendor | "All")
+                }
+                options={[
+                  { value: "All", label: t("filters.allVendors") },
+                  ...KNOWN_VENDORS.map((vendor) => ({
+                    value: vendor,
+                    label: tVendors(vendor),
+                  })),
+                ]}
+              />
 
-              {/* Status Filter */}
-              <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-700">{t("filters.status")}</label>
-                <select
-                  value={selectedStatus}
-                  onChange={(e) => setSelectedStatus(e.target.value as EventStatus | "All")}
-                  className="w-full p-2 border border-gray-300 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
+              {/* Status Filter (only active statuses) */}
+              <SelectField
+                label={t("filters.status")}
+                value={selectedStatus}
+                onChange={(e) =>
+                  setSelectedStatus(e.target.value as EventStatus | "All")
+                }
+                options={[
+                  { value: "All", label: t("filters.allStatuses") },
+                  { value: "Upcoming", label: tStatus("Upcoming") },
+                  { value: "OpenForRegistration", label: tStatus("OpenForRegistration") },
+                  { value: "RegistrationClosed", label: tStatus("RegistrationClosed") },
+                  { value: "Ongoing", label: tStatus("Ongoing") },
+                  { value: "InReview", label: tStatus("InReview") },
+                  { value: "Postponed", label: tStatus("Postponed") },
+                ]}
+              />
+
+              {/* Link to History Page */}
+              {stats.historical > 0 && (
+                <Link
+                  href={`/${locale}/history`}
+                  className="flex items-center gap-2 px-4 py-3 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors text-sm text-gray-700"
                 >
-                  <option value="All">{t("filters.allStatuses")}</option>
-                  <option value="Upcoming">{tStatus("Upcoming")}</option>
-                  <option value="OpenForRegistration">{tStatus("OpenForRegistration")}</option>
-                  <option value="Ongoing">{tStatus("Ongoing")}</option>
-                  <option value="InReview">{tStatus("InReview")}</option>
-                  <option value="Completed">{tStatus("Completed")}</option>
-                  <option value="Postponed">{tStatus("Postponed")}</option>
-                </select>
-              </div>
+                  <History className="w-4 h-4" />
+                  <span>历史活动 ({stats.historical})</span>
+                </Link>
+              )}
             </div>
           </aside>
 
@@ -211,7 +241,9 @@ export default function Home() {
           <main className="flex-1">
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <p className="flex items-center gap-2 text-sm text-gray-500">
-                {isSyncing && <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />}
+                {isSyncing && (
+                  <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+                )}
                 {t("resultsCount", { count: filteredEvents.length })}
               </p>
               <div className="flex items-center gap-3 text-xs text-gray-400">
@@ -244,12 +276,41 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-            ) : filteredEvents.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredEvents.map((event) => (
-                  <EventCard key={event.id} event={event} />
-                ))}
-              </div>
+            ) : paginatedEvents.total > 0 ? (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {paginatedEvents.items.map((event) => (
+                    <MemoizedEventCard key={event.id} event={event} />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {paginatedEvents.totalPages > 1 && (
+                  <div className="mt-8 flex items-center justify-center gap-4">
+                    <button
+                      onClick={() => setPage((p) => Math.max(1, p - 1))}
+                      disabled={page === 1}
+                      className="flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      {tCommon("previous")}
+                    </button>
+
+                    <span className="text-sm text-gray-600">
+                      {page} / {paginatedEvents.totalPages}
+                    </span>
+
+                    <button
+                      onClick={() => setPage((p) => Math.min(paginatedEvents.totalPages, p + 1))}
+                      disabled={!paginatedEvents.hasMore}
+                      className="flex items-center gap-1 px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {tCommon("next")}
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-20 bg-white rounded-xl border border-gray-200 border-dashed">
                 <div className="mx-auto h-12 w-12 text-gray-400">
@@ -261,14 +322,16 @@ export default function Home() {
                 <p className="mt-1 text-sm text-gray-500">
                   {t("noResults.description")}
                 </p>
-                <div className="mt-6">
-                  <button
-                    onClick={clearFilters}
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-blue-600 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  >
-                    {t("filters.clear")}
-                  </button>
-                </div>
+                {hasFilters && (
+                  <div className="mt-6">
+                    <button
+                      onClick={clearFilters}
+                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-blue-600 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      {t("filters.clear")}
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </main>

@@ -1,320 +1,337 @@
 {
-    "nav": {
-        "title": "イベント概要",
-        "events": "イベント",
-        "submit": "イベント登録"
+  "nav": {
+    "title": "イベント概要",
+    "events": "イベント",
+    "history": "過去のイベント",
+    "submit": "イベント登録"
+  },
+  "footer": {
+    "copyright": "© 2025 イベント概要。全著作権所有。"
+  },
+  "home": {
+    "hero": {
+      "title": "最新のテックイベントを探す",
+      "subtitle": "ハッカソン、ミートアップ、コンペティションなどの最新情報をチェック。"
     },
-    "footer": {
-        "copyright": "© 2025 イベント概要。全著作権所有。"
+    "search": {
+      "placeholder": "タイトル、タグ、主催者でイベントを検索...",
+      "button": "検索"
     },
-    "home": {
-        "hero": {
-            "title": "最新のテックイベントを探す",
-            "subtitle": "ハッカソン、ミートアップ、コンペティションなどの最新情報をチェック。"
-        },
-        "search": {
-            "placeholder": "タイトル、タグ、主催者でイベントを検索...",
-            "button": "検索"
-        },
-        "filters": {
-            "title": "フィルター",
-            "type": "種類",
-            "vendor": "プラットフォーム",
-            "status": "ステータス",
-            "allTypes": "すべての種類",
-            "allVendors": "すべてのプラットフォーム",
-            "allStatuses": "すべてのステータス",
-            "clear": "フィルターをクリア"
-        },
-        "noResults": {
-            "title": "イベントが見つかりません",
-            "description": "検索条件やフィルターを調整してください。"
-        },
-        "resultsCount": "{count, plural, =0 {イベントなし} =1 {1 件のイベント} other {# 件のイベント}}"
+    "filters": {
+      "title": "フィルター",
+      "type": "種類",
+      "vendor": "プラットフォーム",
+      "status": "ステータス",
+      "allTypes": "すべての種類",
+      "allVendors": "すべてのプラットフォーム",
+      "allStatuses": "すべてのステータス",
+      "clear": "フィルターをクリア"
     },
-    "supabase": {
-        "badge": "ライブフィード",
-        "synced": "最新のデータです",
-        "syncing": "Supabase と同期中...",
-        "syncingShort": "同期中...",
-        "snapshot": "最新の Supabase スナップショット",
-        "refreshing": "データを更新しています...",
-        "refresh": "フィードを更新",
-        "errorTitle": "Supabase に接続できません",
-        "retry": "再同期",
-        "retrying": "再試行中...",
-        "retrySupabase": "Supabase を再試行"
+    "noResults": {
+      "title": "イベントが見つかりません",
+      "description": "検索条件やフィルターを調整してください。"
     },
-    "eventTypes": {
-        "Meetup": "ミートアップ",
-        "Hackathon": "ハッカソン",
-        "Competition": "コンペティション",
-        "Workshop": "ワークショップ",
-        "Webinar": "ウェビナー",
-        "Other": "その他"
+    "resultsCount": "{count, plural, =0 {イベントなし} =1 {1 件のイベント} other {# 件のイベント}}"
+  },
+  "supabase": {
+    "badge": "ライブフィード",
+    "synced": "最新のデータです",
+    "syncing": "Supabase と同期中...",
+    "syncingShort": "同期中...",
+    "snapshot": "最新の Supabase スナップショット",
+    "refreshing": "データを更新しています...",
+    "refresh": "フィードを更新",
+    "errorTitle": "Supabase に接続できません",
+    "retry": "再同期",
+    "retrying": "再試行中...",
+    "retrySupabase": "Supabase を再試行"
+  },
+  "eventTypes": {
+    "Meetup": "ミートアップ",
+    "Hackathon": "ハッカソン",
+    "Competition": "コンペティション",
+    "Workshop": "ワークショップ",
+    "Webinar": "ウェビナー",
+    "Other": "その他"
+  },
+  "vendors": {
+    "Google": "Google",
+    "Amazon": "Amazon",
+    "Huawei Cloud": "Huawei Cloud",
+    "Alibaba": "Alibaba",
+    "Tencent": "Tencent",
+    "ByteDance": "ByteDance",
+    "Other": "その他"
+  },
+  "eventStatus": {
+    "Upcoming": "開催予定",
+    "OpenForRegistration": "参加登録受付中",
+    "RegistrationClosed": "参加登録終了",
+    "Ongoing": "開催中",
+    "InReview": "審査中",
+    "Completed": "終了",
+    "Postponed": "延期",
+    "Cancelled": "中止"
+  },
+  "locationTypes": {
+    "Online": "オンライン",
+    "Offline": "オフライン",
+    "Hybrid": "ハイブリッド"
+  },
+  "organizerTypes": {
+    "Individual": "個人",
+    "Community": "コミュニティ",
+    "Organization": "組織"
+  },
+  "eventDetail": {
+    "backToEvents": "イベント一覧に戻る",
+    "eventNotFound": "イベントが見つかりません",
+    "missingDescription": "このイベントは存在しないか削除されました。",
+    "errorHeading": "イベントを読み込めません",
+    "noPoster": "ポスター画像なし",
+    "postponed": {
+      "title": "イベント延期",
+      "defaultReason": "このイベントは延期されました。新しい日程をご確認ください。",
+      "originalDate": "元の日程:"
     },
-    "vendors": {
-        "Google": "Google",
-        "Amazon": "Amazon",
-        "Huawei Cloud": "Huawei Cloud",
-        "Alibaba": "Alibaba",
-        "Tencent": "Tencent",
-        "ByteDance": "ByteDance",
-        "Other": "その他"
+    "aboutEvent": "イベント概要",
+    "registration": {
+      "title": "参加登録",
+      "registerNow": "今すぐ登録",
+      "registrationClosed": "参加登録終了",
+      "registrationNotOpen": "参加登録未開始",
+      "noLink": "登録リンクなし"
     },
-    "eventStatus": {
-        "Upcoming": "開催予定",
-        "OpenForRegistration": "参加登録受付中",
-        "RegistrationClosed": "参加登録終了",
-        "Ongoing": "開催中",
-        "InReview": "審査中",
-        "Completed": "終了",
-        "Postponed": "延期",
-        "Cancelled": "中止"
+    "links": {
+      "officialSite": "公式サイト",
+      "livestream": "ライブ配信",
+      "recording": "録画を見る"
     },
-    "locationTypes": {
-        "Online": "オンライン",
-        "Offline": "オフライン",
-        "Hybrid": "ハイブリッド"
+    "organizer": {
+      "title": "主催者",
+      "contact": "連絡先"
     },
-    "organizerTypes": {
-        "Individual": "個人",
-        "Community": "コミュニティ",
-        "Organization": "組織"
+    "timeline": {
+      "title": "イベントタイムライン",
+      "noDetails": "タイムライン詳細なし。",
+      "registrationOpens": "参加登録開始",
+      "registrationCloses": "参加登録終了",
+      "eventStarts": "イベント開始",
+      "eventEnds": "イベント終了",
+      "submissionDeadline": "提出締切",
+      "reviewStarts": "審査開始",
+      "reviewEnds": "審査終了",
+      "announcement": "結果発表",
+      "demoDay": "デモデイ",
+      "awardCeremony": "授賞式"
     },
-    "eventDetail": {
-        "backToEvents": "イベント一覧に戻る",
-        "eventNotFound": "イベントが見つかりません",
-        "missingDescription": "このイベントは存在しないか削除されました。",
-        "errorHeading": "イベントを読み込めません",
-        "noPoster": "ポスター画像なし",
-        "postponed": {
-            "title": "イベント延期",
-            "defaultReason": "このイベントは延期されました。新しい日程をご確認ください。",
-            "originalDate": "元の日程:"
-        },
-        "aboutEvent": "イベント概要",
-        "registration": {
-            "title": "参加登録",
-            "registerNow": "今すぐ登録",
-            "registrationClosed": "参加登録終了",
-            "registrationNotOpen": "参加登録未開始",
-            "noLink": "登録リンクなし"
-        },
-        "links": {
-            "officialSite": "公式サイト",
-            "livestream": "ライブ配信",
-            "recording": "録画を見る"
-        },
-        "organizer": {
-            "title": "主催者",
-            "contact": "連絡先"
-        },
-        "timeline": {
-            "title": "イベントタイムライン",
-            "noDetails": "タイムライン詳細なし。",
-            "registrationOpens": "参加登録開始",
-            "registrationCloses": "参加登録終了",
-            "eventStarts": "イベント開始",
-            "eventEnds": "イベント終了",
-            "submissionDeadline": "提出締切",
-            "reviewStarts": "審査開始",
-            "reviewEnds": "審査終了",
-            "announcement": "結果発表",
-            "demoDay": "デモデイ",
-            "awardCeremony": "授賞式"
-        },
-        "lastUpdated": "最終更新"
+    "lastUpdated": "最終更新"
+  },
+  "submit": {
+    "title": "新しいイベントを登録",
+    "description": "以下のフォームに記入して、新しいイベントを登録してください。* のついた項目は必須です。",
+    "auth": {
+      "title": "提出用パスワードを入力",
+      "description": "安全のため、このフォームは許可されたメンバーのみが利用できます。",
+      "passwordLabel": "アクセスパスワード",
+      "placeholder": "パスワードを入力",
+      "submitButton": "フォームを解除",
+      "unlocking": "確認中...",
+      "required": "パスワードを入力してください",
+      "invalid": "パスワードが正しくありません",
+      "error": "パスワードの確認に失敗しました。しばらくしてから再度お試しください。",
+      "loading": "アクセス権を確認しています..."
     },
-    "submit": {
-        "title": "新しいイベントを登録",
-        "description": "以下のフォームに記入して、新しいイベントを登録してください。* のついた項目は必須です。",
-        "auth": {
-            "title": "提出用パスワードを入力",
-            "description": "安全のため、このフォームは許可されたメンバーのみが利用できます。",
-            "passwordLabel": "アクセスパスワード",
-            "placeholder": "パスワードを入力",
-            "submitButton": "フォームを解除",
-            "unlocking": "確認中...",
-            "required": "パスワードを入力してください",
-            "invalid": "パスワードが正しくありません",
-            "error": "パスワードの確認に失敗しました。しばらくしてから再度お試しください。",
-            "loading": "アクセス権を確認しています..."
-        },
-        "basicInfo": "基本情報",
-        "dates": "日時・スケジュール",
-        "location": "場所",
-        "organizer": "主催者情報",
-        "links": "リンク・リソース",
-        "postponedInfo": "延期イベント情報",
-        "submit": "イベントを登録",
-        "submitting": "登録中...",
-        "errorTitle": "登録に失敗しました",
-        "fields": {
-            "title": {
-                "label": "イベントタイトル",
-                "placeholder": "イベントタイトルを入力"
-            },
-            "subtitle": {
-                "label": "サブタイトル",
-                "placeholder": "サブタイトル（任意）"
-            },
-            "description": {
-                "label": "説明",
-                "placeholder": "イベントの説明を入力..."
-            },
-            "eventType": {
-                "label": "イベント種類",
-                "placeholder": "種類を選択"
-            },
-            "vendor": {
-                "label": "プラットフォーム",
-                "placeholder": "プラットフォームを選択"
-            },
-            "customVendor": {
-                "label": "カスタムプラットフォーム名",
-                "placeholder": "例: OpenAI"
-            },
-            "tags": {
-                "label": "タグ",
-                "placeholder": "例: AI、クラウド、Web3（カンマ区切り）"
-            },
-            "poster": {
-                "label": "イベントポスター",
-                "button": "画像を選択",
-                "dragDrop": "またはドラッグ&ドロップ",
-                "requirements": "最大 2MB、JPG/PNG/WebP",
-                "selected": "選択済み: {filename}"
-            },
-            "eventStart": {
-                "label": "イベント開始日時"
-            },
-            "eventEnd": {
-                "label": "イベント終了日時"
-            },
-            "registrationStart": {
-                "label": "参加登録開始日時"
-            },
-            "registrationEnd": {
-                "label": "参加登録終了日時"
-            },
-            "submissionDeadline": {
-                "label": "提出締切日時"
-            },
-            "reviewStart": {
-                "label": "審査開始日時"
-            },
-            "reviewEnd": {
-                "label": "審査終了日時"
-            },
-            "announcementDate": {
-                "label": "結果発表日"
-            },
-            "demoDayDate": {
-                "label": "デモデイ日程"
-            },
-            "awardCeremonyDate": {
-                "label": "授賞式日程"
-            },
-            "locationType": {
-                "label": "場所の種類",
-                "placeholder": "種類を選択"
-            },
-            "locationDetail": {
-                "label": "場所詳細",
-                "placeholder": "例: サンフランシスコまたは Zoom リンク"
-            },
-            "organizerName": {
-                "label": "主催者名",
-                "placeholder": "個人または組織名"
-            },
-            "organizerType": {
-                "label": "主催者種類",
-                "placeholder": "種類を選択"
-            },
-            "organizerContact": {
-                "label": "連絡先",
-                "placeholder": "メールまたは電話（任意）"
-            },
-            "organizerAvatar": {
-                "label": "主催者アバター URL",
-                "placeholder": "https://...（任意）"
-            },
-            "registrationUrl": {
-                "label": "参加登録 URL",
-                "placeholder": "https://..."
-            },
-            "officialSiteUrl": {
-                "label": "公式サイト",
-                "placeholder": "https://...（任意）"
-            },
-            "livestreamUrl": {
-                "label": "ライブ配信 URL",
-                "placeholder": "https://...（任意）"
-            },
-            "recordingUrl": {
-                "label": "録画 URL",
-                "placeholder": "https://...（任意）"
-            },
-            "isPostponed": {
-                "label": "このイベントは延期されました"
-            },
-            "postponedReason": {
-                "label": "延期理由",
-                "placeholder": "イベント延期の理由を説明"
-            },
-            "originalEventStart": {
-                "label": "元の開始日"
-            },
-            "originalEventEnd": {
-                "label": "元の終了日"
-            }
-        },
-        "validation": {
-            "required": "このフィールドは必須です",
-            "invalidUrl": "http:// または https:// で始まる有効な URL を入力してください",
-            "invalidImageType": "JPG、PNG、WebP 形式の画像のみ許可されています",
-            "imageTooLarge": "画像は 2MB 未満である必要があります",
-            "imageReadError": "画像ファイルの読み込みに失敗しました",
-            "endBeforeStart": "終了日時は開始日時より後である必要があります",
-            "regEndBeforeStart": "参加登録終了は参加登録開始より後である必要があります",
-            "regEndAfterEvent": "参加登録はイベント開始前に終了する必要があります",
-            "postponedOriginalRequired": "延期イベントには元の日程が必要です",
-            "postponedReasonRequired": "延期理由を入力してください",
-            "formErrors": "送信前に上記のエラーを修正してください",
-            "meetupAutoRegEnd": "未入力の場合、ミートアップは開始日の1日前を自動設定します"
-        },
-        "success": "イベントが正常に登録されました！"
+    "basicInfo": "基本情報",
+    "dates": "日時・スケジュール",
+    "timeline": "イベント日程",
+    "registration": "参加登録期間",
+    "location": "場所",
+    "organizer": "主催者情報",
+    "links": "リンク・リソース",
+    "postponedInfo": "延期イベント情報",
+    "submit": "イベントを登録",
+    "submitting": "登録中...",
+    "errorTitle": "登録に失敗しました",
+    "fields": {
+      "title": {
+        "label": "イベントタイトル",
+        "placeholder": "イベントタイトルを入力"
+      },
+      "subtitle": {
+        "label": "サブタイトル",
+        "placeholder": "サブタイトル（任意）"
+      },
+      "description": {
+        "label": "説明",
+        "placeholder": "イベントの説明を入力..."
+      },
+      "eventType": {
+        "label": "イベント種類",
+        "placeholder": "種類を選択"
+      },
+      "vendor": {
+        "label": "プラットフォーム",
+        "placeholder": "プラットフォームを選択"
+      },
+      "customVendor": {
+        "label": "カスタムプラットフォーム名",
+        "placeholder": "例: OpenAI"
+      },
+      "tags": {
+        "label": "タグ",
+        "placeholder": "例: AI、クラウド、Web3（カンマ区切り）"
+      },
+      "poster": {
+        "label": "イベントポスター",
+        "button": "画像を選択",
+        "dragDrop": "またはドラッグ&ドロップ",
+        "requirements": "最大 2MB、JPG/PNG/WebP",
+        "selected": "選択済み: {filename}"
+      },
+      "eventStart": {
+        "label": "イベント開始日時"
+      },
+      "eventEnd": {
+        "label": "イベント終了日時"
+      },
+      "registrationStart": {
+        "label": "参加登録開始日時"
+      },
+      "registrationEnd": {
+        "label": "参加登録終了日時"
+      },
+      "submissionDeadline": {
+        "label": "提出締切日時"
+      },
+      "reviewStart": {
+        "label": "審査開始日時"
+      },
+      "reviewEnd": {
+        "label": "審査終了日時"
+      },
+      "announcementDate": {
+        "label": "結果発表日"
+      },
+      "demoDayDate": {
+        "label": "デモデイ日程"
+      },
+      "awardCeremonyDate": {
+        "label": "授賞式日程"
+      },
+      "locationType": {
+        "label": "場所の種類",
+        "placeholder": "種類を選択"
+      },
+      "locationDetail": {
+        "label": "場所詳細",
+        "placeholder": "例: サンフランシスコまたは Zoom リンク"
+      },
+      "organizerName": {
+        "label": "主催者名",
+        "placeholder": "個人または組織名"
+      },
+      "organizerType": {
+        "label": "主催者種類",
+        "placeholder": "種類を選択"
+      },
+      "organizerContact": {
+        "label": "連絡先",
+        "placeholder": "メールまたは電話（任意）"
+      },
+      "organizerAvatar": {
+        "label": "主催者アバター URL",
+        "placeholder": "https://...（任意）"
+      },
+      "registrationUrl": {
+        "label": "参加登録 URL",
+        "placeholder": "https://..."
+      },
+      "officialSiteUrl": {
+        "label": "公式サイト",
+        "placeholder": "https://...（任意）"
+      },
+      "livestreamUrl": {
+        "label": "ライブ配信 URL",
+        "placeholder": "https://...（任意）"
+      },
+      "recordingUrl": {
+        "label": "録画 URL",
+        "placeholder": "https://...（任意）"
+      },
+      "isPostponed": {
+        "label": "このイベントは延期されました"
+      },
+      "postponedReason": {
+        "label": "延期理由",
+        "placeholder": "イベント延期の理由を説明"
+      },
+      "originalEventStart": {
+        "label": "元の開始日"
+      },
+      "originalEventEnd": {
+        "label": "元の終了日"
+      }
     },
-    "redirect": {
-        "leaving": "イベント概要を離れます",
-        "description": "外部サイトにアクセスしようとしています：",
-        "warning": "外部サイトのコンテンツについては責任を負いません。",
-        "continue": "サイトに進む",
-        "goBack": "戻る",
-        "invalid": {
-            "title": "無効なリダイレクト",
-            "description": "アクセスしようとしているリンクは無効または安全ではありません。",
-            "returnHome": "ホームに戻る"
-        }
+    "validation": {
+      "required": "このフィールドは必須です",
+      "invalidUrl": "http:// または https:// で始まる有効な URL を入力してください",
+      "invalidImageType": "JPG、PNG、WebP 形式の画像のみ許可されています",
+      "imageTooLarge": "画像は 2MB 未満である必要があります",
+      "imageReadError": "画像ファイルの読み込みに失敗しました",
+      "endBeforeStart": "終了日時は開始日時より後である必要があります",
+      "regEndBeforeStart": "参加登録終了は参加登録開始より後である必要があります",
+      "regEndAfterEvent": "参加登録はイベント開始前に終了する必要があります",
+      "postponedOriginalRequired": "延期イベントには元の日程が必要です",
+      "postponedReasonRequired": "延期理由を入力してください",
+      "formErrors": "送信前に上記のエラーを修正してください",
+      "meetupAutoRegEnd": "未入力の場合、ミートアップは開始日の1日前を自動設定します"
     },
-    "notFound": {
-        "title": "ページが見つかりません",
-        "description": "申し訳ございません。お探しのページが見つかりませんでした。削除されたか、存在しない可能性があります。",
-        "returnHome": "ホームに戻る"
-    },
-    "common": {
-        "loading": "読み込み中...",
-        "error": "エラーが発生しました",
-        "close": "閉じる",
-        "cancel": "キャンセル",
-        "save": "保存",
-        "edit": "編集",
-        "delete": "削除",
-        "yes": "はい",
-        "no": "いいえ",
-        "optional": "（任意）",
-        "required": "*",
-        "tbd": "未定"
+    "success": "イベントが正常に登録されました！"
+  },
+  "redirect": {
+    "leaving": "イベント概要を離れます",
+    "description": "外部サイトにアクセスしようとしています：",
+    "warning": "外部サイトのコンテンツについては責任を負いません。",
+    "continue": "サイトに進む",
+    "goBack": "戻る",
+    "invalid": {
+      "title": "無効なリダイレクト",
+      "description": "アクセスしようとしているリンクは無効または安全ではありません。",
+      "returnHome": "ホームに戻る"
     }
+  },
+  "notFound": {
+    "title": "ページが見つかりません",
+    "description": "申し訳ございません。お探しのページが見つかりませんでした。削除されたか、存在しない可能性があります。",
+    "returnHome": "ホームに戻る"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "edit": "編集",
+    "delete": "削除",
+    "yes": "はい",
+    "no": "いいえ",
+    "optional": "（任意）",
+    "required": "*",
+    "tbd": "未定",
+    "back": "戻る",
+    "previous": "前へ",
+    "next": "次へ",
+    "viewAll": "すべて表示"
+  },
+  "history": {
+    "title": "過去のイベント",
+    "description": "{count} 件の終了イベント",
+    "empty": {
+      "title": "過去のイベントはありません",
+      "description": "完了またはキャンセルされたイベントがここに表示されます。"
+    },
+    "pagination": "{total} ページ中 {current} ページ",
+    "showing": "{total} 件中 {start}-{end} 件を表示"
+  }
 }

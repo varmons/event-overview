@@ -1,0 +1,30 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "Supabase",
+    "supabase",
+    "formatjs",
+    "localematcher",
+    "Hackathon",
+    "nextjs",
+    "next",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "lucide",
+    "clsx",
+    "negotiator",
+    "vitest",
+    "eslint"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    ".next/**",
+    "out/**",
+    "build/**",
+    "dist/**",
+    "*.lock",
+    "package-lock.json"
+  ]
+}
